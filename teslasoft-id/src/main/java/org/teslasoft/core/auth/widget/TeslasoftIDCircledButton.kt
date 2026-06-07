@@ -48,7 +48,9 @@ import org.teslasoft.core.auth.*
 import org.teslasoft.core.auth.internal.Config.Companion.AUTH_SERVER
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.teslasoft.core.auth.annotation.PublicAPI
+import org.teslasoft.core.auth.util.PackageUtil
 
 class TeslasoftIDCircledButton : Fragment() {
     private var accountIcon: ImageView? = null
@@ -169,11 +171,35 @@ class TeslasoftIDCircledButton : Fragment() {
         update()
 
         authBtn?.setOnClickListener {
+            val shouldStartTeslasoftCore = PackageUtil.checkInstallation(requireContext()) && accountSettings?.getBoolean("isLocalTest", false) == false
+
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 requireActivity(),
                 Pair.create(authBtn, ViewCompat.getTransitionName(authBtn!!))
             )
-            activityResultLauncher.launch(Intent(internalActivity ?: return@setOnClickListener, TeslasoftIDAuth::class.java), options)
+
+            val launchIntent = if (shouldStartTeslasoftCore) {
+                Intent(internalActivity ?: return@setOnClickListener, TeslasoftIDAuth::class.java)
+            } else {
+                Intent(internalActivity ?: return@setOnClickListener, WebSignInActivity::class.java)
+            }
+
+            if ((!shouldStartTeslasoftCore && accountSettings?.getString("token", null) == null) || shouldStartTeslasoftCore) {
+                activityResultLauncher.launch(launchIntent, options)
+            } else {
+                MaterialAlertDialogBuilder(
+                    requireContext(),
+                    R.style.TeslasoftID_MaterialAlertDialog
+                )
+                    .setTitle("Sign out")
+                    .setMessage("Would you like to sign out from your account?")
+                    .setPositiveButton("Continue") { _, _ ->
+                        invalidate()
+                        listener?.onSignedOut()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
         }
     }
 

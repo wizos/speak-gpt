@@ -84,7 +84,7 @@ class TeslasoftIDClientBuilder(private val context: Activity) {
     @Suppress("unused")
     fun build() : TeslasoftIDClient {
         val applicationSignature = ApplicationSignature(context)
-        teslasoftIDClient = TeslasoftIDClient(context, applicationSignature.getCertificateFingerprint("SHA256")!!, apiKey!!, appId!!, settingsListener, syncListener)
+        teslasoftIDClient = TeslasoftIDClient(context, applicationSignature.getCertificateFingerprint("SHA256"), apiKey!!, appId!!, settingsListener, syncListener)
         return teslasoftIDClient!!
     }
 }

@@ -17,12 +17,20 @@
 package org.teslasoft.core.auth.client
 
 import android.app.Activity
+import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import org.teslasoft.core.auth.RequestNetwork
 import org.teslasoft.core.auth.annotation.PublicAPI
 import org.teslasoft.core.auth.internal.Config.Companion.AUTH_SERVER
+import org.teslasoft.core.auth.util.PackageUtil
 
 class TeslasoftIDClient(private val context: Activity, private val applicationSignature: String, private var apiKey: String, private var appId: String, private var settingsListener: SettingsListener?, private var syncListener: SyncListener?) {
+
+    companion object {
+        fun isTeslasoftCoreAvailable(context: Context): Boolean {
+            return PackageUtil.checkInstallation(context)
+        }
+    }
 
     private var apiLoader: RequestNetwork? = null
     private var apiGetterListener: RequestNetwork.RequestListener = object : RequestNetwork.RequestListener {

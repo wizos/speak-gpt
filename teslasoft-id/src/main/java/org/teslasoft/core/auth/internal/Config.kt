@@ -19,5 +19,7 @@ package org.teslasoft.core.auth.internal
 class Config {
     companion object {
         const val AUTH_SERVER = "https://id.teslasoft.org/xauth"
+        const val WEB_AUTH_SERVER = "https://account.teslasoft.org/AccountPicker"
+        const val TOKEN_SERVICE = "https://teslasoft.org/token.php"
     }
 }

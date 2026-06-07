@@ -43,6 +43,7 @@ import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.SurfaceColors
 import org.teslasoft.core.auth.internal.ApplicationSignature
+import org.teslasoft.core.auth.util.PackageUtil.Companion.checkInstallation
 
 class TeslasoftIDAuth : FragmentActivity() {
     private val requestPermissionLauncher =
@@ -103,7 +104,7 @@ class TeslasoftIDAuth : FragmentActivity() {
             override fun onResponse(tag: String, message: String) {
                 if (message == "OK") {
                     runOnUiThread {
-                        if (!checkInstallation()) {
+                        if (!checkInstallation(this@TeslasoftIDAuth)) {
                             MaterialAlertDialogBuilder(this@TeslasoftIDAuth, R.style.TeslasoftID_MaterialAlertDialog)
                                 .setTitle(getAppName())
                                 .setMessage(String.format(getString(R.string.teslasoft_services_auth_core_unavailable), getAppName()))
@@ -143,15 +144,6 @@ class TeslasoftIDAuth : FragmentActivity() {
                 }
             }
         })
-    }
-
-    private fun checkInstallation(): Boolean {
-        return try {
-            val packageManager = this.packageManager
-            val packageInfo = packageManager.getPackageInfo("com.teslasoft.libraries.support", PackageManager.GET_ACTIVITIES)
-
-            return packageInfo != null
-        } catch (_: PackageManager.NameNotFoundException) { false }
     }
 
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
