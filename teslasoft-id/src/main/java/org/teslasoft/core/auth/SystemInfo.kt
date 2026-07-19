@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023-2025 Dmytro Ostapenko. All rights reserved.
+ * Copyright (c) 2023-2026 Dmytro Ostapenko. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,11 +34,12 @@ class SystemInfo {
          * Custom params:
          * 00 - Main build (Maven release)
          * 01 - SpeakGPT build
+         * 02 - Admin Panel build
          ********************************************************************************************/
 
         const val NAME = "Teslasoft ID for SpeakGPT"
         const val MODIFIER = "-speakgpt"
-        const val VERSION_CODE = 150101
+        const val VERSION_CODE = 153101
         const val MAJOR_VERSION = VERSION_CODE / 100000
         const val MINOR_VERSION = VERSION_CODE % 100000 / 10000
         const val PATCH_VERSION = VERSION_CODE % 10000 / 1000

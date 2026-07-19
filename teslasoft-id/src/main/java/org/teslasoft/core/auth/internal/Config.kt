@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023-2025 Dmytro Ostapenko. All rights reserved.
+ * Copyright (c) 2023-2026 Dmytro Ostapenko. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,5 +19,7 @@ package org.teslasoft.core.auth.internal
 class Config {
     companion object {
         const val AUTH_SERVER = "https://id.teslasoft.org/xauth"
+        const val WEB_AUTH_SERVER = "https://account.teslasoft.org/AccountPicker"
+        const val TOKEN_SERVICE = "https://teslasoft.org/token.php"
     }
 }
