@@ -1467,7 +1467,7 @@ class AssistantFragment : BottomSheetDialogFragment(), ChatAdapter.OnUpdateListe
                             stopper = false
                             return@collect
                         }
-                        if (v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
+                        if (v.choices.isNotEmpty() && v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
                             response += v.choices[0].delta?.content
                             if (response != "null") {
                                 messages[messages.size - 1]["message"] = response
@@ -1810,7 +1810,7 @@ class AssistantFragment : BottomSheetDialogFragment(), ChatAdapter.OnUpdateListe
                     stopper = false
                     return@collect
                 }
-                if (v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
+                if (v.choices.isNotEmpty() && v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
                     response += v.choices[0].delta?.content
                     messages[messages.size - 1]["message"] = response
                     scroll(false)
