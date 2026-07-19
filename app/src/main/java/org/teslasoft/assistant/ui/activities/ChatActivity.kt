@@ -2042,7 +2042,7 @@ class ChatActivity : FragmentActivity(), ChatAdapter.OnUpdateListener {
                 completions.flowOn(Dispatchers.IO).collect { v ->
                     run {
                         if (!currentCoroutineContext().isActive) throw CancellationException()
-                        else if (v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
+                        else if (v.choices.isNotEmpty() && v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
                             response += v.choices[0].delta?.content
                             if (response != "null") {
                                 messages[messages.size - 1]["message"] = response
@@ -2383,7 +2383,7 @@ class ChatActivity : FragmentActivity(), ChatAdapter.OnUpdateListener {
         completions.flowOn(Dispatchers.IO).collect { v ->
             run {
                 if (!currentCoroutineContext().isActive) throw CancellationException()
-                else if (v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
+                else if (v.choices.isNotEmpty() && v.choices[0].delta != null && v.choices[0].delta?.content != null && v.choices[0].delta?.content.toString() != "null") {
                     response += v.choices[0].delta?.content
                     messages[messages.size - 1]["message"] = response
                     if (messages.size > 2) {
